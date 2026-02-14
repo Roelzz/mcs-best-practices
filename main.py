@@ -5,6 +5,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastmcp import FastMCP
 from loguru import logger
@@ -181,6 +182,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.middleware("http")
 async def mcp_accept_middleware(request: Request, call_next):
@@ -196,7 +204,7 @@ async def mcp_accept_middleware(request: Request, call_next):
 
 @app.middleware("http")
 async def auth_middleware(request: Request, call_next):
-    if request.url.path == "/health":
+    if request.url.path == "/health" or request.method == "OPTIONS":
         return await call_next(request)
     if request.url.path.startswith("/mcp") and request.method == "GET":
         return JSONResponse({"status": "ok", "server": "MCS Best Practices MCP", "protocol": "mcp-streamable-1.0"})
