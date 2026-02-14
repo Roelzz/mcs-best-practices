@@ -184,7 +184,7 @@ app = FastAPI(
 
 @app.middleware("http")
 async def auth_middleware(request: Request, call_next):
-    if request.url.path == "/health":
+    if request.url.path == "/health" or (request.url.path.startswith("/mcp") and request.method == "GET"):
         return await call_next(request)
     api_key = request.headers.get("X-API-Key")
     if not api_key or api_key not in API_KEYS:
