@@ -1,0 +1,222 @@
+[
+  {
+    "id": "bp-001",
+    "title": "Use descriptive topic names",
+    "category": "topics",
+    "description": "Topic names should clearly describe what the topic does. Use verb-noun format like Handle-PaymentInquiry.",
+    "rationale": "Descriptive names make agents easier to maintain. Other makers can understand the structure at a glance.",
+    "example_good": "Handle-PaymentInquiry, Greet-NewUser, Escalate-ToHuman",
+    "example_bad": "Topic1, NewTopic, HandleIt",
+    "difficulty": "beginner",
+    "tags": ["naming", "maintainability", "topics"]
+  },
+  {
+    "id": "bp-002",
+    "title": "Always handle the else branch in conditions",
+    "category": "topics",
+    "description": "Every condition node should have both branches defined. Never leave an else branch empty.",
+    "rationale": "Undefined branches cause unexpected behavior or leave users without a response.",
+    "example_good": "If condition met → response A. Else → response B or redirect.",
+    "example_bad": "If condition met → response A. Else → (nothing)",
+    "difficulty": "beginner",
+    "tags": ["conditions", "error-handling", "topics"]
+  },
+  {
+    "id": "bp-003",
+    "title": "Use variables for repeated values",
+    "category": "topics",
+    "description": "Store values used multiple times in variables: API endpoints, common messages, config values.",
+    "rationale": "Change a value once instead of hunting through multiple topics.",
+    "example_good": "Set Topic.ApiEndpoint once, use it everywhere",
+    "example_bad": "Hardcode the same URL in every HTTP node",
+    "difficulty": "beginner",
+    "tags": ["variables", "maintainability", "dry"]
+  },
+  {
+    "id": "bp-004",
+    "title": "Validate user input before processing",
+    "category": "security",
+    "description": "Always validate user input from entities and questions before using in API calls or logic.",
+    "rationale": "Invalid input causes API errors, unexpected behavior, or security issues.",
+    "example_good": "Check if email entity is valid format before API request",
+    "example_bad": "Pass user input directly to API without checking",
+    "difficulty": "intermediate",
+    "tags": ["validation", "security", "input-handling"]
+  },
+  {
+    "id": "bp-005",
+    "title": "Use system topics for global behavior",
+    "category": "topics",
+    "description": "Customize system topics (Greeting, Fallback, Escalate) for consistent behavior instead of duplicating logic.",
+    "rationale": "System topics trigger automatically. Customizing them ensures consistent handling.",
+    "example_good": "Edit system Fallback topic to log and offer escalation",
+    "example_bad": "Add fallback handling to every individual topic",
+    "difficulty": "beginner",
+    "tags": ["system-topics", "consistency", "fallback"]
+  },
+  {
+    "id": "bp-006",
+    "title": "Test with multiple conversation paths",
+    "category": "testing",
+    "description": "Test edge cases, invalid inputs, unexpected responses, and conversation abandonment.",
+    "rationale": "Real users don't follow scripts. Test multiple paths for real-world scenarios.",
+    "example_good": "Test: valid input, invalid input, user says never mind, unrelated question mid-flow",
+    "example_bad": "Only test the exact flow you designed",
+    "difficulty": "intermediate",
+    "tags": ["testing", "edge-cases", "quality"]
+  },
+  {
+    "id": "bp-007",
+    "title": "Set appropriate scope for variables",
+    "category": "variables",
+    "description": "Use Topic variables for values needed within a topic. Use Global only when values must persist across topics.",
+    "rationale": "Proper scoping prevents conflicts and makes debugging easier.",
+    "example_good": "Topic.UserEmail for this topic. Global.UserLanguage for everywhere.",
+    "example_bad": "Using Global variables for everything",
+    "difficulty": "intermediate",
+    "tags": ["variables", "scope", "maintainability"]
+  },
+  {
+    "id": "bp-008",
+    "title": "Use generative answers for knowledge-based questions",
+    "category": "knowledge",
+    "description": "For questions answered from knowledge sources, use generative answers instead of hard-coding.",
+    "rationale": "Generative answers stay up-to-date as knowledge changes. Hard-coded needs manual updates.",
+    "example_good": "Add SharePoint as knowledge, let AI answer policy questions",
+    "example_bad": "Create a topic with hard-coded vacation policy text",
+    "difficulty": "beginner",
+    "tags": ["knowledge", "generative-ai", "maintenance"]
+  },
+  {
+    "id": "bp-009",
+    "title": "Handle HTTP errors gracefully",
+    "category": "connectors",
+    "description": "Always check HTTP response status codes and handle errors. Don't assume success.",
+    "rationale": "APIs fail. Network issues happen. Handle errors for good UX.",
+    "example_good": "Check if status is 200. If not, show friendly error.",
+    "example_bad": "Assume HTTP call succeeds and use response data directly",
+    "difficulty": "intermediate",
+    "tags": ["http", "error-handling", "reliability"]
+  },
+  {
+    "id": "bp-010",
+    "title": "Use authentication for production agents",
+    "category": "security",
+    "description": "Production agents should require authentication. Use Authenticate with Microsoft for internal agents.",
+    "rationale": "Auth identifies users, enables personalization, provides audit trails.",
+    "example_good": "Set auth to Authenticate with Microsoft for internal HR bot",
+    "example_bad": "No authentication for an agent accessing employee data",
+    "difficulty": "beginner",
+    "tags": ["security", "authentication", "production"]
+  },
+  {
+    "id": "bp-011",
+    "title": "Version agents with solution deployment",
+    "category": "alm",
+    "description": "Use Power Platform solutions to version and deploy. Never edit production directly.",
+    "rationale": "Solutions provide version control and rollback. Direct edits are risky.",
+    "example_good": "Dev → export solution → test → production",
+    "example_bad": "Edit production agent directly",
+    "difficulty": "intermediate",
+    "tags": ["alm", "solutions", "versioning"]
+  },
+  {
+    "id": "bp-012",
+    "title": "Limit SharePoint knowledge to specific sites",
+    "category": "knowledge",
+    "description": "Add specific SharePoint sites with relevant content, not the entire tenant.",
+    "rationale": "Broad knowledge increases response time and may include irrelevant content.",
+    "example_good": "Add HR Policies SharePoint site for HR bot",
+    "example_bad": "Add entire company SharePoint as knowledge",
+    "difficulty": "beginner",
+    "tags": ["knowledge", "sharepoint", "performance"]
+  },
+  {
+    "id": "bp-013",
+    "title": "Use 5-10 trigger phrases per topic",
+    "category": "topics",
+    "description": "Add varied trigger phrases including synonyms and common misspellings.",
+    "rationale": "More variations improve topic matching accuracy.",
+    "example_good": "Check order, order status, where is my order, track package",
+    "example_bad": "Only one phrase: check order status",
+    "difficulty": "beginner",
+    "tags": ["triggers", "nlp", "topics"]
+  },
+  {
+    "id": "bp-014",
+    "title": "Log important events to Application Insights",
+    "category": "monitoring",
+    "description": "Connect to Application Insights and log errors, escalations, important actions.",
+    "rationale": "Logging enables monitoring and debugging. You can't improve what you can't measure.",
+    "example_good": "Log escalations, API failures, unknown intents",
+    "example_bad": "No logging, rely on user complaints",
+    "difficulty": "intermediate",
+    "tags": ["monitoring", "logging", "application-insights"]
+  },
+  {
+    "id": "bp-015",
+    "title": "Use MCP servers for complex integrations",
+    "category": "connectors",
+    "description": "For complex integrations (CRM, ERP), use MCP servers instead of raw HTTP. MCP provides tooling and governance.",
+    "rationale": "MCP abstracts complexity, provides updates, and integrates with governance.",
+    "example_good": "Use Dataverse MCP to query records",
+    "example_bad": "Build complex HTTP logic for Dataverse API",
+    "difficulty": "intermediate",
+    "tags": ["mcp", "integrations", "dataverse"]
+  },
+  {
+    "id": "bp-016",
+    "title": "Don't expose sensitive data in responses",
+    "category": "security",
+    "description": "Never display full SSN, credit cards, passwords. Use masking.",
+    "rationale": "Conversations may be logged or visible. Protect sensitive data.",
+    "example_good": "Show Card ending in 4242",
+    "example_bad": "Display full credit card number",
+    "difficulty": "beginner",
+    "tags": ["security", "pii", "data-masking"]
+  },
+  {
+    "id": "bp-017",
+    "title": "Test in multiple channels before publishing",
+    "category": "testing",
+    "description": "Test in all deployment channels. Behavior differs between Teams, web, mobile.",
+    "rationale": "Channels have different capabilities and message limits.",
+    "example_good": "Test in web, then Teams, then mobile before production",
+    "example_bad": "Only test in web, deploy to Teams",
+    "difficulty": "intermediate",
+    "tags": ["channels", "testing", "teams"]
+  },
+  {
+    "id": "bp-018",
+    "title": "Document your agent architecture",
+    "category": "documentation",
+    "description": "Create docs showing topic flow, integrations, dependencies, maintenance procedures.",
+    "rationale": "Documentation enables handoff and troubleshooting.",
+    "example_good": "README with architecture, integrations, common issues",
+    "example_bad": "No documentation, all knowledge in one person's head",
+    "difficulty": "beginner",
+    "tags": ["documentation", "maintenance"]
+  },
+  {
+    "id": "bp-019",
+    "title": "Review and update knowledge sources regularly",
+    "category": "knowledge",
+    "description": "Schedule regular reviews. Remove outdated content, add new content.",
+    "rationale": "Stale knowledge leads to wrong answers.",
+    "example_good": "Monthly review: check policies, add new docs, remove old",
+    "example_bad": "Set up knowledge once and never look at it again",
+    "difficulty": "beginner",
+    "tags": ["knowledge", "maintenance", "accuracy"]
+  },
+  {
+    "id": "bp-020",
+    "title": "Implement conversation timeout handling",
+    "category": "topics",
+    "description": "Plan for users who abandon mid-flow. Check for incomplete sessions in Conversation Start.",
+    "rationale": "Users get distracted. Handle timeouts gracefully.",
+    "example_good": "Check for incomplete orders, offer to continue or start fresh",
+    "example_bad": "Assume users always complete conversations",
+    "difficulty": "advanced",
+    "tags": ["timeout", "session", "ux"]
+  }
+]

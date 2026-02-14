@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    container_name: mcs-best-practices-app
+    ports:
+      - "2009:2009"
+    env_file:
+      - .env
+    networks:
+      - mcs-best-practices_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:2009/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  mcs-best-practices_network:
+    driver: bridge

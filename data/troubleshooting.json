@@ -1,0 +1,142 @@
+[
+  {
+    "id": "ts-001",
+    "title": "HTTP connector returns 403 Forbidden",
+    "category": "connectors",
+    "symptoms": ["HTTP request shows 403", "API works in browser but fails in agent", "Forbidden error"],
+    "causes": ["API requires authentication", "Missing User-Agent header", "IP not allowlisted", "CORS blocking"],
+    "steps": [
+      {"step": 1, "action": "Check API authentication", "details": "Review API docs. Add Authorization header if needed."},
+      {"step": 2, "action": "Add User-Agent header", "details": "Add: User-Agent: MicrosoftCopilotStudio/1.0"},
+      {"step": 3, "action": "Check IP allowlist", "details": "Power Platform uses dynamic IPs. May need proxy or gateway."},
+      {"step": 4, "action": "Test in Power Automate", "details": "Create simple flow calling same API. If it works, issue is MCS-specific."}
+    ],
+    "tags": ["http", "403", "forbidden", "authentication"]
+  },
+  {
+    "id": "ts-002",
+    "title": "Topic not triggering as expected",
+    "category": "topics",
+    "symptoms": ["Wrong topic triggered", "Topic never matches", "Fallback triggered instead"],
+    "causes": ["Trigger phrases too similar", "Too few phrases", "Conflicting intents"],
+    "steps": [
+      {"step": 1, "action": "Check for conflicts", "details": "Review trigger phrases across all topics. Look for similar wording."},
+      {"step": 2, "action": "Add more variations", "details": "Add 5-10 diverse trigger phrases including synonyms."},
+      {"step": 3, "action": "Test specific phrases", "details": "In test chat, try exact trigger phrases. Note which topic actually triggers."},
+      {"step": 4, "action": "Use topic priority", "details": "Adjust topic priority in settings to prefer specific topic."}
+    ],
+    "tags": ["topics", "triggers", "nlp"]
+  },
+  {
+    "id": "ts-003",
+    "title": "Knowledge source not returning answers",
+    "category": "knowledge",
+    "symptoms": ["Agent says I don't know", "Knowledge not used", "Generative answers empty"],
+    "causes": ["Knowledge not synced", "Content not indexed", "Question doesn't match", "Permissions issue"],
+    "steps": [
+      {"step": 1, "action": "Check sync status", "details": "Go to Knowledge. Check if source shows Synced. May take 4 hours."},
+      {"step": 2, "action": "Verify content exists", "details": "Check that content exists in source. Some file types may not index."},
+      {"step": 3, "action": "Test exact phrases", "details": "Ask questions using exact words from the content."},
+      {"step": 4, "action": "Check permissions", "details": "Ensure agent has read access to SharePoint/website."}
+    ],
+    "tags": ["knowledge", "sharepoint", "generative-answers"]
+  },
+  {
+    "id": "ts-004",
+    "title": "Variable value is blank unexpectedly",
+    "category": "variables",
+    "symptoms": ["Variable blank", "Data not persisting", "Value lost between nodes"],
+    "causes": ["Scope issue", "Assignment not executed", "Conversation reset", "Wrong variable name"],
+    "steps": [
+      {"step": 1, "action": "Check variable scope", "details": "Topic variables reset when topic ends. Use Global for cross-topic."},
+      {"step": 2, "action": "Verify assignment path", "details": "Check if Set Variable node is on executed path. Add debug messages."},
+      {"step": 3, "action": "Check for resets", "details": "Some actions reset conversation. Check for redirects."},
+      {"step": 4, "action": "Verify variable name", "details": "Names are case-sensitive. Check for typos."}
+    ],
+    "tags": ["variables", "scope", "debugging"]
+  },
+  {
+    "id": "ts-005",
+    "title": "Can't publish to Teams",
+    "category": "channels",
+    "symptoms": ["Publish to Teams fails", "Teams option missing", "Deployment error"],
+    "causes": ["DLP policy blocking", "Missing permissions", "Environment restrictions", "Teams admin settings"],
+    "steps": [
+      {"step": 1, "action": "Check DLP policies", "details": "Teams channel may be blocked by DLP. Check with admin."},
+      {"step": 2, "action": "Verify environment", "details": "Some environments don't allow Teams publishing."},
+      {"step": 3, "action": "Check Teams admin", "details": "Teams admin may restrict custom apps."},
+      {"step": 4, "action": "Try test deployment", "details": "Deploy to Teams for yourself first before broader rollout."}
+    ],
+    "tags": ["channels", "teams", "publishing"]
+  },
+  {
+    "id": "ts-006",
+    "title": "Power Fx formula shows error",
+    "category": "power-fx",
+    "symptoms": ["Red squiggly in formula", "Formula doesn't save", "Intellisense error"],
+    "causes": ["Syntax error", "Wrong data type", "Unknown function", "Missing variable"],
+    "steps": [
+      {"step": 1, "action": "Check syntax", "details": "Look for missing parentheses, commas, quotes. Functions are case-sensitive."},
+      {"step": 2, "action": "Verify data types", "details": "Many errors are type mismatches. Use Text(), Value(), Boolean() to convert."},
+      {"step": 3, "action": "Check function availability", "details": "Not all Power Fx functions work in MCS. Check MCS docs."},
+      {"step": 4, "action": "Hover for details", "details": "Hover over error squiggly. Tooltip explains the issue."}
+    ],
+    "tags": ["power-fx", "formulas", "syntax"]
+  },
+  {
+    "id": "ts-007",
+    "title": "MCP server connection fails",
+    "category": "mcp",
+    "symptoms": ["MCP not connecting", "Authorization error", "Tools not appearing"],
+    "causes": ["MCP not enabled", "Auth issue", "Server not allowed", "Network problem"],
+    "steps": [
+      {"step": 1, "action": "Check environment", "details": "MCP must be enabled for the environment. Check with admin."},
+      {"step": 2, "action": "Re-authorize", "details": "Remove and re-add MCP connection. Complete auth flow again."},
+      {"step": 3, "action": "Verify server allowed", "details": "Specific MCP servers must be in allowed list. Check DLP."},
+      {"step": 4, "action": "Test server directly", "details": "If custom MCP, verify server is running and accessible."}
+    ],
+    "tags": ["mcp", "connections", "authentication"]
+  },
+  {
+    "id": "ts-008",
+    "title": "Agent response is too slow",
+    "category": "performance",
+    "symptoms": ["Long response times", "Timeout errors", "User complaints"],
+    "causes": ["Slow API calls", "Too much knowledge", "Complex logic", "Large responses"],
+    "steps": [
+      {"step": 1, "action": "Identify bottleneck", "details": "Add timing debug messages. Identify which node is slow."},
+      {"step": 2, "action": "Optimize API calls", "details": "Reduce payload size. Cache if possible."},
+      {"step": 3, "action": "Reduce knowledge scope", "details": "Use specific sites instead of broad sources."},
+      {"step": 4, "action": "Simplify logic", "details": "Break complex topics into smaller pieces."}
+    ],
+    "tags": ["performance", "timeout", "optimization"]
+  },
+  {
+    "id": "ts-009",
+    "title": "Entity extraction not working",
+    "category": "entities",
+    "symptoms": ["Entity not recognized", "Wrong value extracted", "Entity blank"],
+    "causes": ["Entity type mismatch", "Ambiguous input", "Slot filling issue", "Format not recognized"],
+    "steps": [
+      {"step": 1, "action": "Check entity type", "details": "Verify type matches expected input (email, number, date)."},
+      {"step": 2, "action": "Test clear input", "details": "Try unambiguous inputs: john@email.com not my email is john at email dot com."},
+      {"step": 3, "action": "Add slot filling", "details": "If entity blank, prompt user explicitly for value."},
+      {"step": 4, "action": "Consider custom entity", "details": "For non-standard formats, create custom entity."}
+    ],
+    "tags": ["entities", "extraction", "nlp"]
+  },
+  {
+    "id": "ts-010",
+    "title": "Connector blocked by DLP",
+    "category": "dlp",
+    "symptoms": ["Connector not available", "Publish fails with DLP error", "Feature grayed out"],
+    "causes": ["DLP policy blocking", "Wrong environment", "Connector in blocked group"],
+    "steps": [
+      {"step": 1, "action": "Identify policy", "details": "Go to Channels tab. Download DLP violation report for details."},
+      {"step": 2, "action": "Check environment", "details": "You may be in restricted zone. Check if Yellow/Red available."},
+      {"step": 3, "action": "Request exception", "details": "Contact admin with business justification."},
+      {"step": 4, "action": "Find alternative", "details": "Some functionality achievable with allowed connectors."}
+    ],
+    "tags": ["dlp", "connectors", "policy"]
+  }
+]

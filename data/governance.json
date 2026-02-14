@@ -1,0 +1,106 @@
+[
+  {
+    "id": "gov-001",
+    "feature": "http-connector",
+    "display_name": "HTTP Connector",
+    "minimum_zone": "yellow",
+    "zones": {
+      "green": {"available": false, "reason": "HTTP connector typically blocked in Green zone"},
+      "yellow": {"available": true, "requirements": ["Endpoint filtering may apply", "Only allowed URLs work"]},
+      "red": {"available": true, "requirements": ["No endpoint filtering", "All URLs allowed"]},
+      "red-extra": {"available": true, "requirements": ["Same as Red"]}
+    },
+    "justification_template": "I need HTTP connector to call [API name] for [purpose]. This will [benefit]."
+  },
+  {
+    "id": "gov-002",
+    "feature": "public-websites",
+    "display_name": "Public Websites as Knowledge",
+    "minimum_zone": "yellow",
+    "zones": {
+      "green": {"available": false, "reason": "Public websites blocked. Use SharePoint instead."},
+      "yellow": {"available": true, "requirements": ["Specific websites only via endpoint filtering"]},
+      "red": {"available": true, "requirements": ["Any public website allowed"]},
+      "red-extra": {"available": true, "requirements": ["Same as Red"]}
+    },
+    "justification_template": "I need public website knowledge for [site] to provide [content type] information."
+  },
+  {
+    "id": "gov-003",
+    "feature": "mcp-servers",
+    "display_name": "MCP Servers",
+    "minimum_zone": "red-extra",
+    "zones": {
+      "green": {"available": false, "reason": "MCP not enabled in Green zone"},
+      "yellow": {"available": false, "reason": "MCP not enabled in Yellow zone"},
+      "red": {"available": false, "reason": "MCP not enabled in standard Red zone"},
+      "red-extra": {"available": true, "requirements": ["Specific MCP server must be allowed", "Full audit trail"]}
+    },
+    "justification_template": "I need MCP server [name] to [purpose]. MCP is better than HTTP because [reason]."
+  },
+  {
+    "id": "gov-004",
+    "feature": "sharepoint-knowledge",
+    "display_name": "SharePoint as Knowledge",
+    "minimum_zone": "green",
+    "zones": {
+      "green": {"available": true, "requirements": ["User must have access to SharePoint site"]},
+      "yellow": {"available": true, "requirements": ["Same as Green"]},
+      "red": {"available": true, "requirements": ["Same as Green"]},
+      "red-extra": {"available": true, "requirements": ["Restricted sites may also be available"]}
+    },
+    "justification_template": "N/A - available in all zones"
+  },
+  {
+    "id": "gov-005",
+    "feature": "teams-channel",
+    "display_name": "Teams Channel Publishing",
+    "minimum_zone": "yellow",
+    "zones": {
+      "green": {"available": false, "reason": "Teams publishing blocked in Green zone"},
+      "yellow": {"available": true, "requirements": ["Admin approval may be required"]},
+      "red": {"available": true, "requirements": ["Same as Yellow"]},
+      "red-extra": {"available": true, "requirements": ["Same as Yellow"]}
+    },
+    "justification_template": "I need to publish to Teams for [user group] to [purpose]."
+  },
+  {
+    "id": "gov-006",
+    "feature": "unauthenticated",
+    "display_name": "No Authentication (Public Agent)",
+    "minimum_zone": "red",
+    "zones": {
+      "green": {"available": false, "reason": "Unauthenticated agents blocked"},
+      "yellow": {"available": false, "reason": "Unauthenticated agents blocked"},
+      "red": {"available": true, "requirements": ["Security review required", "Limited data access"]},
+      "red-extra": {"available": true, "requirements": ["Same as Red"]}
+    },
+    "justification_template": "I need unauthenticated agent for [external users] because [reason]. Data access limited to [scope]."
+  },
+  {
+    "id": "gov-007",
+    "feature": "premium-connectors",
+    "display_name": "Premium Connectors (Salesforce, SAP)",
+    "minimum_zone": "yellow",
+    "zones": {
+      "green": {"available": false, "reason": "Premium connectors blocked in Green zone"},
+      "yellow": {"available": true, "requirements": ["Specific connectors must be allowed in DLP"]},
+      "red": {"available": true, "requirements": ["Most premium connectors available"]},
+      "red-extra": {"available": true, "requirements": ["All premium connectors available"]}
+    },
+    "justification_template": "I need [connector] to integrate with [system] for [purpose]."
+  },
+  {
+    "id": "gov-008",
+    "feature": "application-insights",
+    "display_name": "Application Insights Logging",
+    "minimum_zone": "yellow",
+    "zones": {
+      "green": {"available": false, "reason": "Application Insights connector may be blocked"},
+      "yellow": {"available": true, "requirements": ["App Insights resource must exist"]},
+      "red": {"available": true, "requirements": ["Same as Yellow"]},
+      "red-extra": {"available": true, "requirements": ["Same as Yellow"]}
+    },
+    "justification_template": "I need Application Insights to monitor [metrics] for [purpose]."
+  }
+]

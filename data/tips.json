@@ -1,0 +1,92 @@
+[
+  {
+    "id": "tip-001",
+    "title": "Use system topics for consistent behavior",
+    "category": "topics",
+    "tip": "Customize the system Fallback topic instead of adding fallback logic to every topic.",
+    "why_it_matters": "Reduces duplication and ensures consistent user experience.",
+    "tags": ["system-topics", "fallback", "consistency"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "tip-002",
+    "title": "Ctrl+/ toggles code view",
+    "category": "authoring",
+    "tip": "Press Ctrl+/ in the topic editor to switch between visual and YAML code view.",
+    "why_it_matters": "Code view is faster for complex edits and copy-paste operations.",
+    "tags": ["shortcuts", "yaml", "authoring"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "tip-003",
+    "title": "Use test chat debug mode",
+    "category": "testing",
+    "tip": "In test chat, click the debug icon to see which topics triggered and variable values.",
+    "why_it_matters": "Debug mode shows the agent's decision-making process.",
+    "tags": ["testing", "debugging", "variables"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "tip-004",
+    "title": "Clone topics to save time",
+    "category": "authoring",
+    "tip": "Use Copy topic to clone a topic as starting point for similar flows.",
+    "why_it_matters": "Faster than building from scratch. Ensures consistency.",
+    "tags": ["authoring", "productivity"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "tip-005",
+    "title": "Set up test accounts",
+    "category": "testing",
+    "tip": "Create test user accounts with different roles to test auth scenarios.",
+    "why_it_matters": "Real testing requires realistic user contexts.",
+    "tags": ["testing", "authentication", "roles"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "tip-006",
+    "title": "Use Power Automate for complex logic",
+    "category": "integrations",
+    "tip": "When topic logic gets too complex, move it to Power Automate and call from MCS.",
+    "why_it_matters": "Power Automate has more capabilities and is easier to debug.",
+    "tags": ["power-automate", "integrations", "complexity"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "tip-007",
+    "title": "Bookmark the YAML reference",
+    "category": "authoring",
+    "tip": "The YAML reference docs are essential for code view editing. Keep it handy.",
+    "why_it_matters": "YAML syntax for MCS is specific. Reference saves trial and error.",
+    "tags": ["yaml", "documentation", "authoring"],
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "tip-008",
+    "title": "Export and backup regularly",
+    "category": "alm",
+    "tip": "Export agent as solution before major changes. It's your undo button.",
+    "why_it_matters": "No built-in version history. Exports are your safety net.",
+    "tags": ["backup", "solutions", "alm"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "tip-009",
+    "title": "Use Analytics to find gaps",
+    "category": "monitoring",
+    "tip": "Check Analytics tab regularly. Unrecognized queries shows what users want that you're not providing.",
+    "why_it_matters": "Real user data is gold for improving your agent.",
+    "tags": ["analytics", "improvement", "monitoring"],
+    "difficulty": "beginner"
+  },
+  {
+    "id": "tip-010",
+    "title": "Start simple, iterate",
+    "category": "strategy",
+    "tip": "Launch with focused scope. Add capabilities based on real user needs, not assumptions.",
+    "why_it_matters": "Overscoped agents are harder to maintain and miss what users actually need.",
+    "tags": ["strategy", "mvp", "iteration"],
+    "difficulty": "beginner"
+  }
+]
