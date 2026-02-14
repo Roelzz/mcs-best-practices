@@ -1,0 +1,29 @@
+[project]
+name = "mcs-best-practices"
+version = "0.1.0"
+description = "Curated Copilot Studio best practices API + MCP server for governance bootcamp"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.129.0",
+    "fastmcp>=2.14.5",
+    "loguru>=0.7.3",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "uvicorn[standard]>=0.40.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
