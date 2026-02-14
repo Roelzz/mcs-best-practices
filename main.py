@@ -196,8 +196,10 @@ async def mcp_accept_middleware(request: Request, call_next):
 
 @app.middleware("http")
 async def auth_middleware(request: Request, call_next):
-    if request.url.path == "/health" or (request.url.path.startswith("/mcp") and request.method == "GET"):
+    if request.url.path == "/health":
         return await call_next(request)
+    if request.url.path.startswith("/mcp") and request.method == "GET":
+        return JSONResponse({"status": "ok", "server": "MCS Best Practices MCP", "protocol": "mcp-streamable-1.0"})
     api_key = request.headers.get("X-API-Key")
     if not api_key or api_key not in API_KEYS:
         return JSONResponse(status_code=401, content={"detail": "Invalid or missing API key"})
