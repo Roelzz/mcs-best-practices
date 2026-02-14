@@ -183,6 +183,18 @@ app = FastAPI(
 
 
 @app.middleware("http")
+async def mcp_accept_middleware(request: Request, call_next):
+    """Inject Accept header for MCP POST requests if missing — Azure API Hub strips it."""
+    if request.url.path.startswith("/mcp") and request.method == "POST":
+        accept = request.headers.get("accept", "")
+        if "text/event-stream" not in accept:
+            headers = dict(request.scope["headers"])
+            headers[b"accept"] = b"application/json, text/event-stream"
+            request.scope["headers"] = list(headers.items())
+    return await call_next(request)
+
+
+@app.middleware("http")
 async def auth_middleware(request: Request, call_next):
     if request.url.path == "/health" or (request.url.path.startswith("/mcp") and request.method == "GET"):
         return await call_next(request)
