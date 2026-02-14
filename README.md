@@ -21,7 +21,9 @@ uv run python main.py
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `API_KEYS` | `mcs-bootcamp-2025,mcs-demo-key` | Comma-separated valid API keys |
+| `PORT` | `2011` | Server port |
 | `LOG_LEVEL` | `INFO` | Logging level (DEBUG, INFO, WARNING, ERROR) |
+| `BASE_URL` | `https://your-server.example.com/` | Public base URL for the server |
 
 ## API Endpoints
 
@@ -64,7 +66,7 @@ All endpoints require `X-API-Key` header except `/health`.
 
 ```bash
 uv sync
-uv run python main.py          # Run server on port 2009
+uv run python main.py          # Run server on port 2011
 uv run pytest                   # Run tests
 uv run ruff check .             # Lint
 uv run ruff format .            # Format
@@ -82,7 +84,7 @@ podman-compose down             # Stop
 **Via MCP Onboarding Wizard (recommended):**
 1. In Copilot Studio, go to Tools > Add Tool
 2. Select MCP Server
-3. Enter server URL: `https://your-server:2009/mcp`
+3. Enter server URL: `https://your-server:2011/mcp`
 4. Add authentication: API Key in `X-API-Key` header
 5. Test connection and select tools
 

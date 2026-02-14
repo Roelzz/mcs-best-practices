@@ -6,6 +6,6 @@ COPY . .
 
 RUN pip install uv && uv sync
 
-EXPOSE 2009
+EXPOSE 2011
 
 CMD ["uv", "run", "python", "main.py"]
