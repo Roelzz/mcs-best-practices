@@ -1,0 +1,30 @@
+swagger: '2.0'
+info:
+  title: mcs-best-practices
+  description: >-
+    Curated Copilot Studio best practices, code snippets, troubleshooting
+    guides, and governance zone info for the MCS Governance Bootcamp.
+  version: 1.0.0
+host: mcs-best-practices.test.roelschenk.com
+basePath: /mcp
+schemes:
+  - https
+paths:
+  /:
+    post:
+      responses:
+        '200':
+          description: Immediate Response
+      x-ms-agentic-protocol: mcp-streamable-1.0
+      operationId: InvokeServer
+      summary: mcs-best-practices
+      description: >-
+        Curated Copilot Studio best practices, code snippets, troubleshooting
+        guides, and governance zone info for the MCS Governance Bootcamp.
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: X-API-Key
+security:
+  - api_key: []

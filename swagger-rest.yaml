@@ -1,0 +1,301 @@
+swagger: '2.0'
+info:
+  title: MCS Best Practices REST API
+  description: >-
+    Curated Copilot Studio best practices, code snippets, troubleshooting
+    guides, tips, and governance zone info for the MCS Governance Bootcamp.
+  version: 1.0.0
+host: mcs-best-practices.test.roelschenk.com
+basePath: /api/v1
+schemes:
+  - https
+paths:
+  /best-practices:
+    get:
+      operationId: ListBestPractices
+      summary: Search best practices
+      description: Search and filter curated Copilot Studio best practices by query, category, or difficulty.
+      parameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Search query (matches title, description, tags)
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by category (e.g. topics, security, connectors, variables, testing)
+        - name: difficulty
+          in: query
+          type: string
+          required: false
+          description: Filter by difficulty (beginner, intermediate, advanced)
+      responses:
+        '200':
+          description: List of matching best practices
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/BestPractice'
+              total:
+                type: integer
+        '401':
+          description: Invalid or missing API key
+  /best-practices/{id}:
+    get:
+      operationId: GetBestPractice
+      summary: Get best practice by ID
+      description: Get a single best practice by its ID (e.g. bp-001).
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Best practice ID (e.g. bp-001)
+      responses:
+        '200':
+          description: Best practice detail
+          schema:
+            $ref: '#/definitions/BestPractice'
+        '404':
+          description: Not found
+  /snippets:
+    get:
+      operationId: ListSnippets
+      summary: Search code snippets
+      description: Search and filter code snippets by query or language.
+      parameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Search query (matches title, description, code)
+        - name: language
+          in: query
+          type: string
+          required: false
+          description: Filter by language (power-fx, yaml, json, any)
+      responses:
+        '200':
+          description: List of matching snippets
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Snippet'
+              total:
+                type: integer
+  /snippets/{id}:
+    get:
+      operationId: GetSnippet
+      summary: Get snippet by ID
+      description: Get a single code snippet by its ID (e.g. snip-001).
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Snippet ID (e.g. snip-001)
+      responses:
+        '200':
+          description: Snippet detail
+          schema:
+            $ref: '#/definitions/Snippet'
+        '404':
+          description: Not found
+  /troubleshooting:
+    get:
+      operationId: ListTroubleshooting
+      summary: Search troubleshooting guides
+      description: Search and filter troubleshooting guides by query or category.
+      parameters:
+        - name: q
+          in: query
+          type: string
+          required: false
+          description: Search query (matches title, symptoms, causes)
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by category (e.g. connectors, publishing, auth)
+      responses:
+        '200':
+          description: List of matching troubleshooting guides
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Troubleshooting'
+              total:
+                type: integer
+  /troubleshooting/{id}:
+    get:
+      operationId: GetTroubleshooting
+      summary: Get troubleshooting guide by ID
+      description: Get a single troubleshooting guide by its ID (e.g. ts-001).
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Troubleshooting ID (e.g. ts-001)
+      responses:
+        '200':
+          description: Troubleshooting guide detail
+          schema:
+            $ref: '#/definitions/Troubleshooting'
+        '404':
+          description: Not found
+  /tips:
+    get:
+      operationId: ListTips
+      summary: List tips
+      description: List and filter tips by category.
+      parameters:
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by category (e.g. testing, authoring, publishing)
+      responses:
+        '200':
+          description: List of tips
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Tip'
+              total:
+                type: integer
+  /governance/{feature}:
+    get:
+      operationId: GetGovernance
+      summary: Get governance zone info
+      description: Get governance zone requirements for a Copilot Studio feature (e.g. http-connector, mcp-servers).
+      parameters:
+        - name: feature
+          in: path
+          type: string
+          required: true
+          description: Feature name (e.g. http-connector, mcp-servers, ai-builder)
+      responses:
+        '200':
+          description: Governance zone detail
+          schema:
+            $ref: '#/definitions/Governance'
+        '404':
+          description: Feature not found
+definitions:
+  BestPractice:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      rationale:
+        type: string
+      example_good:
+        type: string
+      example_bad:
+        type: string
+      difficulty:
+        type: string
+      tags:
+        type: array
+        items:
+          type: string
+  Snippet:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      language:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      code:
+        type: string
+      explanation:
+        type: string
+      use_case:
+        type: string
+  Troubleshooting:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      category:
+        type: string
+      symptoms:
+        type: array
+        items:
+          type: string
+      causes:
+        type: array
+        items:
+          type: string
+      resolution_steps:
+        type: array
+        items:
+          type: string
+  Tip:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      category:
+        type: string
+      tip:
+        type: string
+      why_it_matters:
+        type: string
+      tags:
+        type: array
+        items:
+          type: string
+  Governance:
+    type: object
+    properties:
+      id:
+        type: string
+      feature:
+        type: string
+      display_name:
+        type: string
+      minimum_zone:
+        type: string
+      zones:
+        type: object
+      justification_template:
+        type: string
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: X-API-Key
+security:
+  - api_key: []

@@ -81,6 +81,13 @@ podman-compose down             # Stop
 
 ## Copilot Studio Setup
 
+### Swagger Files
+
+| File | Purpose |
+|------|---------|
+| [`swagger.yaml`](swagger.yaml) | MCP Server connector spec (Custom Connector path) |
+| [`swagger-rest.yaml`](swagger-rest.yaml) | REST API connector spec (all endpoints) |
+
 ### Option A: MCP Server (recommended)
 
 1. In Copilot Studio, go to **Tools > Add Tool**
@@ -88,6 +95,8 @@ podman-compose down             # Stop
 3. Enter server URL: `https://your-server/mcp`
 4. Add authentication: API Key in `X-API-Key` header, value: `mcs-bootcamp-2025`
 5. Test connection and select tools
+
+**Via Custom Connector:** Upload [`swagger.yaml`](swagger.yaml) instead.
 
 ### Option B: REST API via Custom Connector
 
