@@ -9,6 +9,13 @@ host: mcs-best-practices.test.roelschenk.com
 basePath: /api/v1
 schemes:
   - https
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: X-API-Key
+security:
+  - api_key: []
 paths:
   /best-practices:
     get:
@@ -38,11 +45,38 @@ paths:
             type: object
             properties:
               results:
-                type: array
-                items:
-                  $ref: '#/definitions/BestPractice'
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Best practice ID (e.g. bp-001)
+                  title:
+                    type: string
+                    description: Name of the best practice
+                  category:
+                    type: string
+                    description: Category (topics, security, connectors, variables, testing)
+                  description:
+                    type: string
+                    description: What the best practice recommends
+                  rationale:
+                    type: string
+                    description: Why this practice matters
+                  example_good:
+                    type: string
+                    description: Example of correct implementation
+                  example_bad:
+                    type: string
+                    description: Example of what to avoid
+                  difficulty:
+                    type: string
+                    description: Skill level (beginner, intermediate, advanced)
+                  tags:
+                    type: string
+                    description: Comma-separated related keywords
               total:
                 type: integer
+                description: Number of results returned
         '401':
           description: Invalid or missing API key
   /best-practices/{id}:
@@ -60,7 +94,35 @@ paths:
         '200':
           description: Best practice detail
           schema:
-            $ref: '#/definitions/BestPractice'
+            type: object
+            properties:
+              id:
+                type: string
+                description: Best practice ID
+              title:
+                type: string
+                description: Name of the best practice
+              category:
+                type: string
+                description: Category
+              description:
+                type: string
+                description: What the best practice recommends
+              rationale:
+                type: string
+                description: Why this practice matters
+              example_good:
+                type: string
+                description: Example of correct implementation
+              example_bad:
+                type: string
+                description: Example of what to avoid
+              difficulty:
+                type: string
+                description: Skill level (beginner, intermediate, advanced)
+              tags:
+                type: string
+                description: Comma-separated related keywords
         '404':
           description: Not found
   /snippets:
@@ -86,11 +148,35 @@ paths:
             type: object
             properties:
               results:
-                type: array
-                items:
-                  $ref: '#/definitions/Snippet'
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Snippet ID (e.g. snip-001)
+                  title:
+                    type: string
+                    description: Name of the snippet
+                  language:
+                    type: string
+                    description: Programming language (power-fx, yaml, json)
+                  category:
+                    type: string
+                    description: Snippet category
+                  description:
+                    type: string
+                    description: What the snippet does
+                  code:
+                    type: string
+                    description: The code snippet (copy-paste ready)
+                  explanation:
+                    type: string
+                    description: How the code works
+                  use_case:
+                    type: string
+                    description: When to use this snippet
               total:
                 type: integer
+                description: Number of results returned
   /snippets/{id}:
     get:
       operationId: GetSnippet
@@ -106,7 +192,32 @@ paths:
         '200':
           description: Snippet detail
           schema:
-            $ref: '#/definitions/Snippet'
+            type: object
+            properties:
+              id:
+                type: string
+                description: Snippet ID
+              title:
+                type: string
+                description: Name of the snippet
+              language:
+                type: string
+                description: Programming language
+              category:
+                type: string
+                description: Snippet category
+              description:
+                type: string
+                description: What the snippet does
+              code:
+                type: string
+                description: The code snippet (copy-paste ready)
+              explanation:
+                type: string
+                description: How the code works
+              use_case:
+                type: string
+                description: When to use this snippet
         '404':
           description: Not found
   /troubleshooting:
@@ -132,11 +243,29 @@ paths:
             type: object
             properties:
               results:
-                type: array
-                items:
-                  $ref: '#/definitions/Troubleshooting'
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Troubleshooting ID (e.g. ts-001)
+                  title:
+                    type: string
+                    description: Issue title
+                  category:
+                    type: string
+                    description: Issue category
+                  symptoms:
+                    type: string
+                    description: What you see when this issue occurs
+                  causes:
+                    type: string
+                    description: Common root causes
+                  resolution_steps:
+                    type: string
+                    description: Step-by-step fix instructions
               total:
                 type: integer
+                description: Number of results returned
   /troubleshooting/{id}:
     get:
       operationId: GetTroubleshooting
@@ -152,7 +281,26 @@ paths:
         '200':
           description: Troubleshooting guide detail
           schema:
-            $ref: '#/definitions/Troubleshooting'
+            type: object
+            properties:
+              id:
+                type: string
+                description: Troubleshooting ID
+              title:
+                type: string
+                description: Issue title
+              category:
+                type: string
+                description: Issue category
+              symptoms:
+                type: string
+                description: What you see when this issue occurs
+              causes:
+                type: string
+                description: Common root causes
+              resolution_steps:
+                type: string
+                description: Step-by-step fix instructions
         '404':
           description: Not found
   /tips:
@@ -173,11 +321,29 @@ paths:
             type: object
             properties:
               results:
-                type: array
-                items:
-                  $ref: '#/definitions/Tip'
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Tip ID (e.g. tip-001)
+                  title:
+                    type: string
+                    description: Tip title
+                  category:
+                    type: string
+                    description: Tip category
+                  tip:
+                    type: string
+                    description: The actual tip text
+                  why_it_matters:
+                    type: string
+                    description: Why this tip is important
+                  tags:
+                    type: string
+                    description: Comma-separated related keywords
               total:
                 type: integer
+                description: Number of results returned
   /governance/{feature}:
     get:
       operationId: GetGovernance
@@ -193,109 +359,25 @@ paths:
         '200':
           description: Governance zone detail
           schema:
-            $ref: '#/definitions/Governance'
+            type: object
+            properties:
+              id:
+                type: string
+                description: Governance ID (e.g. gov-001)
+              feature:
+                type: string
+                description: Feature identifier
+              display_name:
+                type: string
+                description: Human-readable feature name
+              minimum_zone:
+                type: string
+                description: Minimum governance zone required (green, yellow, red, red-extra)
+              zones:
+                type: string
+                description: JSON object with availability and requirements per zone (green, yellow, red, red-extra)
+              justification_template:
+                type: string
+                description: Template text for requesting access to this feature
         '404':
           description: Feature not found
-definitions:
-  BestPractice:
-    type: object
-    properties:
-      id:
-        type: string
-      title:
-        type: string
-      category:
-        type: string
-      description:
-        type: string
-      rationale:
-        type: string
-      example_good:
-        type: string
-      example_bad:
-        type: string
-      difficulty:
-        type: string
-      tags:
-        type: array
-        items:
-          type: string
-  Snippet:
-    type: object
-    properties:
-      id:
-        type: string
-      title:
-        type: string
-      language:
-        type: string
-      category:
-        type: string
-      description:
-        type: string
-      code:
-        type: string
-      explanation:
-        type: string
-      use_case:
-        type: string
-  Troubleshooting:
-    type: object
-    properties:
-      id:
-        type: string
-      title:
-        type: string
-      category:
-        type: string
-      symptoms:
-        type: array
-        items:
-          type: string
-      causes:
-        type: array
-        items:
-          type: string
-      resolution_steps:
-        type: array
-        items:
-          type: string
-  Tip:
-    type: object
-    properties:
-      id:
-        type: string
-      title:
-        type: string
-      category:
-        type: string
-      tip:
-        type: string
-      why_it_matters:
-        type: string
-      tags:
-        type: array
-        items:
-          type: string
-  Governance:
-    type: object
-    properties:
-      id:
-        type: string
-      feature:
-        type: string
-      display_name:
-        type: string
-      minimum_zone:
-        type: string
-      zones:
-        type: object
-      justification_template:
-        type: string
-securityDefinitions:
-  api_key:
-    type: apiKey
-    in: header
-    name: X-API-Key
-security:
-  - api_key: []
